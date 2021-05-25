@@ -2,7 +2,7 @@ import { Op } from 'sequelize';
 import { Event } from '../db/models/event';
 
 export async function ragedEvents(
-  userId: unknown,
+  userId: any,
   startDate: string,
   endDate: string
 ) {
@@ -28,7 +28,7 @@ export async function ragedEvents(
       },
 
       user_id: {
-        [Op.eq]: userId,
+        [Op.eq]: userId as number,
       },
     },
   });
