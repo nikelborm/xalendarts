@@ -7,8 +7,10 @@ export async function getEvents(
   res: Response,
   next: NextFunction
 ) {
+  console.log(typeof req.query.userId);
+
   const events = await ragedEvents(
-    req.query.userId,
+    req.query.userId as any,
     req.query.startDate as string,
     req.query.endDate as string
   );
