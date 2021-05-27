@@ -1,26 +1,26 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../connection';
 
-export const User = sequelize.define(
-  'User',
+export const Meeting = sequelize.define(
+  'Meeting',
   {
-    user_id: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
 
-    type: {
+    startTime: {
       type: DataTypes.STRING,
       allowNull: false,
     },
 
-    full_name: {
+    endTime: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   },
   {
-    tableName: 'users',
+    tableName: 'events',
     createdAt: false,
     updatedAt: false,
   }

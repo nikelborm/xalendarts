@@ -1,8 +1,8 @@
-import type { Request, Response, NextFunction } from 'express';
+import type { Request, Response } from 'express';
 import { userInfo } from '../services/user';
 import { getError } from './error';
 
-export async function getUser(req: Request, res: Response, next: NextFunction) {
+export async function getUser(req: Request, res: Response) {
   const user = await userInfo(req.query.fullName as string);
 
   const error = getError('User not found', '404');

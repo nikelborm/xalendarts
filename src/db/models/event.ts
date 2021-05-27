@@ -38,11 +38,6 @@ export const Event = sequelize.define(
       allowNull: false,
     },
 
-    group_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
     start_time: {
       type: DataTypes.TIME,
       allowNull: false,
@@ -61,10 +56,20 @@ export const Event = sequelize.define(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+    },
+
+    user_id: {
+      type: DataTypes.ARRAY(DataTypes.TEXT),
       allowNull: false,
+    },
+
+    meeting_id: {
+      type: DataTypes.INTEGER,
     },
   },
   {
     tableName: 'events',
+    createdAt: false,
+    updatedAt: false,
   }
 );

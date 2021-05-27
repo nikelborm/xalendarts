@@ -1,8 +1,9 @@
 import { Op } from 'sequelize';
 import { Event } from '../db/models/event';
+import { updateEvent } from '../routes/event';
 
-export async function ragedEvents(
-  userId: any,
+export async function getRagedEvents(
+  userId: string,
   startDate: string,
   endDate: string
 ) {
@@ -16,10 +17,10 @@ export async function ragedEvents(
       'aud',
       'link',
       'theme',
-      'group_name',
       'start_time',
       'end_time',
       'date',
+      'meeting_id',
     ],
     where: {
       date: {
@@ -28,7 +29,7 @@ export async function ragedEvents(
       },
 
       user_id: {
-        [Op.eq]: userId as number,
+        [Op.eq]: userId,
       },
     },
   });
@@ -38,4 +39,91 @@ export async function ragedEvents(
   } else {
     return events;
   }
+}
+
+export async function updateCurrentEvent(
+  id: number,
+  userId: string[],
+  date: string,
+  startTime: string,
+  endTime: string,
+  name: string,
+  color: string,
+  aud: string,
+  link: string,
+  teacher: string,
+  moduleName: string,
+  theme: string
+) {
+  const updatedEvent = await Event.update(
+    {
+      name: name,
+      color: color,
+      aud: aud,
+      link: link,
+      teacher: teacher,
+      module_name: moduleName,
+      theme: theme,
+      start_time: startTime,
+      end_time: endTime,
+      date: date,
+      user_id: userId,
+    },
+    {
+      where: {
+        id: {
+          [Op.eq]: id,
+        },
+      },
+    }
+  );
+
+  return updatedEvent;
+}
+
+export async function setCurrentEvent(
+  userId: string[],
+  date: string,
+  startTime: string,
+  endTime: string,
+  name: string,
+  color: string,
+  aud: string,
+  link: string,
+  teacher: string,
+  moduleName: string,
+  theme: string
+) {
+  const newEvent = await Event.create(
+    {
+      name: name,
+      color: color,
+      aud: aud,
+      link: link,
+      teacher: teacher,
+      module_name: moduleName,
+      theme: theme,
+      start_time: startTime,
+      end_time: endTime,
+      date: date,
+      user_id: userId,
+    },
+    {
+      fields: [
+        'name',
+        'color',
+        'aud',
+        'link',
+        'teacher',
+        'module_name',
+        'theme',
+        'start_time',
+        'end_time',
+        'date',
+        'user_id',
+      ],
+    }
+  );
+
+  return newEvent;
 }
