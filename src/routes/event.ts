@@ -16,6 +16,8 @@ export async function getEvents(req: Request, res: Response) {
   if (events === null) {
     res.end(error);
   } else {
+    res.header('Content-Type', 'application/json; charset=utf-8');
+    res.sendFile(__dirname, '/event.html');
     res.end(JSON.stringify(events));
   }
 }
@@ -36,6 +38,7 @@ export async function updateEvent(req: Request, res: Response) {
     req.body.theme
   );
 
+  res.header('Content-Type', 'application/json; charset=utf-8');
   res.end(JSON.stringify(updatedEvent));
 }
 
@@ -54,5 +57,6 @@ export async function setEvent(req: Request, res: Response) {
     req.body.theme
   );
 
+  res.header('Content-Type', 'application/json; charset=utf-8');
   res.end(JSON.stringify(event));
 }

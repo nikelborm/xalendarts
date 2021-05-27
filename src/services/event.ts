@@ -29,7 +29,7 @@ export async function getRagedEvents(
       },
 
       user_id: {
-        [Op.eq]: userId,
+        [Op.contains]: [userId],
       },
     },
   });

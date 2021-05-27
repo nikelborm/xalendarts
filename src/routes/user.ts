@@ -10,6 +10,7 @@ export async function getUser(req: Request, res: Response) {
   if (user === null) {
     res.end(error);
   } else {
+    res.header('Content-Type', 'application/json; charset=utf-8');
     res.end(JSON.stringify(user));
   }
 }

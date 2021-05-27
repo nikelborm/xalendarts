@@ -10,6 +10,8 @@ export async function getMeetings(req: Request, res: Response) {
   if (meetings === null) {
     res.end(error);
   } else {
+    res.header('Content-Type', 'application/json; charset=utf-8');
+    res.sendFile('template/meeting.html', { root: __dirname });
     res.end(JSON.stringify(meetings));
   }
 }
