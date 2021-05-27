@@ -6,7 +6,7 @@ export async function getAvaliableMeetings(userId: string) {
     attributes: ['name', 'start_time', 'end_time'],
     where: {
       user_id: {
-        [Op.eq]: userId,
+        [Op.contains]: [userId],
       },
     },
   });
