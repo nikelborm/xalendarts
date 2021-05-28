@@ -1,8 +1,6 @@
 import express from 'express';
 import { getUser } from './user';
-import { getEvents } from './event';
-import { setEvent } from './event';
-import { updateEvent } from './event';
+import { updateEvent, setEvent, getEvents, deleteEvent } from './event';
 import { getMeetings } from './meeting';
 
 const router = express.Router();
@@ -16,5 +14,7 @@ router.get('/meetings', getMeetings);
 router.post('/event', setEvent);
 
 router.patch('/event', updateEvent);
+
+router.delete('/event', deleteEvent);
 
 export { router };

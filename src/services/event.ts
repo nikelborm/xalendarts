@@ -1,3 +1,4 @@
+import { AnyRecordWithTtl } from 'dns';
 import { Op } from 'sequelize';
 import { Event } from '../db/models/event';
 import { updateEvent } from '../routes/event';
@@ -5,23 +6,32 @@ import { updateEvent } from '../routes/event';
 export async function getRagedEvents(
   userId: string,
   startDate: string,
-  endDate: string
+  endDate?: string
 ) {
+  console.log('type ' + typeof endDate);
+  console.log(endDate);
+
+  if (typeof endDate == typeof undefined) {
+    const event = await Event.findAll({
+      where: {
+        date: {
+          [Op.eq]: startDate,
+        },
+
+        user_id: {
+          [Op.contains]: [userId],
+        },
+      },
+    });
+
+    if (JSON.stringify(event) == '[]') {
+      return null;
+    } else {
+      return event;
+    }
+  }
+
   const events = await Event.findAll({
-    attributes: [
-      'id',
-      'name',
-      'color',
-      'teacher',
-      'module_name',
-      'aud',
-      'link',
-      'theme',
-      'start_time',
-      'end_time',
-      'date',
-      'meeting_id',
-    ],
     where: {
       date: {
         [Op.gte]: startDate,
@@ -79,6 +89,18 @@ export async function updateCurrentEvent(
   );
 
   return updatedEvent;
+}
+
+export async function deleteCurrentEvent(eventId: any) {
+  const deletedEvent = await Event.destroy({
+    where: {
+      id: {
+        [Op.eq]: eventId as number,
+      },
+    },
+  });
+
+  return deletedEvent;
 }
 
 export async function setCurrentEvent(
