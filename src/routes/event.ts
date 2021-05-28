@@ -1,8 +1,11 @@
 import type { Request, Response, NextFunction } from 'express';
-import { getRagedEvents } from '../services/event';
-import { setCurrentEvent } from '../services/event';
 import { getError } from './error';
-import { updateCurrentEvent } from '../services/event';
+import {
+  deleteCurrentEvent,
+  updateCurrentEvent,
+  getRagedEvents,
+  setCurrentEvent,
+} from '../services/event';
 
 export async function getEvents(req: Request, res: Response) {
   const events = await getRagedEvents(
@@ -59,4 +62,11 @@ export async function setEvent(req: Request, res: Response) {
 
   res.header('Content-Type', 'application/json; charset=utf-8');
   res.end(JSON.stringify(event));
+}
+
+export async function deleteEvent(req: Request, res: Response) {
+  const deletedEvent = await deleteCurrentEvent(req.query.id);
+
+  res.header('Content-Type', 'application/json; charset=utf-8');
+  res.end(JSON.stringify(deletedEvent));
 }
