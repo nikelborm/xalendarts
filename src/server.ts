@@ -5,11 +5,12 @@ import * as swaggerDoc from './swagger.json';
 
 export function initialize() {
   const server = express();
+  const PORT = process.env.PORT || 3000;
 
   server.use(express.json());
 
-  server.on('listening', () => {
-    console.log('Server started!');
+  server.listen(PORT, () => {
+    console.log('Server has been started');
   });
 
   server.use('/docs', swagger.serve, swagger.setup(swaggerDoc));

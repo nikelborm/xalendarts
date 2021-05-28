@@ -29,9 +29,10 @@ const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swaggerDoc = __importStar(require("./swagger.json"));
 function initialize() {
     const server = express_1.default();
+    const PORT = process.env.PORT || 3000;
     server.use(express_1.default.json());
-    server.on('listening', () => {
-        console.log('Server started!');
+    server.listen(PORT, () => {
+        console.log('Server has been started');
     });
     server.use('/docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDoc));
     server.use(router_1.router);

@@ -1,3 +1,3 @@
-import { initialize } from "./server";
+import { initialize } from './server';
 
-initialize().listen(3000);
+initialize();
