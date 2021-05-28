@@ -5,7 +5,7 @@ import * as swaggerDoc from './swagger.json';
 
 export function initialize() {
   const server = express();
-  const PORT = process.env.PORT || 3000;
+  const PORT = process.env.PORT || 80;
 
   server.use(express.json());
 
