@@ -1,12 +1,14 @@
 import express from 'express';
+import path from 'path';
 
 import { getUser } from './user';
 import { updateEvent, setEvent, getEvents, deleteEvent } from './event';
 import { getMeetings } from './meeting';
 
 const router = express.Router();
+process.env.PWD = process.cwd();
 
-console.log();
+console.log(process.env.PWD);
 
 router.get('/user', getUser);
 
@@ -20,6 +22,6 @@ router.patch('/event', updateEvent);
 
 router.delete('/event', deleteEvent);
 
-router.use(express.static('templates'));
+router.use('/', express.static(path.join(process.env.PWD, 'template')));
 
 export { router };
