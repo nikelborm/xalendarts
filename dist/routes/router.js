@@ -10,7 +10,7 @@ const event_1 = require("./event");
 const meeting_1 = require("./meeting");
 const router = express_1.default.Router();
 exports.router = router;
-console.log();
+console.log(__dirname);
 router.get('/user', user_1.getUser);
 router.get('/events', event_1.getEvents);
 router.get('/meetings', meeting_1.getMeetings);
