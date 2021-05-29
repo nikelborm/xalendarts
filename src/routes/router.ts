@@ -22,6 +22,6 @@ router.patch('/event', updateEvent);
 
 router.delete('/event', deleteEvent);
 
-router.use('/', express.static(path.join(process.env.PWD, 'template')));
+router.use('/', express.static(path.join(process.env.PWD, 'templates')));
 
 export { router };
