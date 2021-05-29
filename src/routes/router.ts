@@ -6,9 +6,14 @@ import { updateEvent, setEvent, getEvents, deleteEvent } from './event';
 import { getMeetings } from './meeting';
 
 const router = express.Router();
-process.env.PWD = process.cwd();
 
-console.log(process.env.PWD);
+console.log(__dirname);
+
+router.use(express.static(__dirname + '/templates'));
+
+router.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'templates', 'index.html'));
+});
 
 router.get('/user', getUser);
 
@@ -21,7 +26,5 @@ router.post('/event', setEvent);
 router.patch('/event', updateEvent);
 
 router.delete('/event', deleteEvent);
-
-router.use('/', express.static(path.join(process.env.PWD, 'templates')));
 
 export { router };
