@@ -6,7 +6,7 @@ import { getMeetings } from './meeting';
 
 const router = express.Router();
 
-console.log();
+console.log(process.cwd());
 
 router.get('/user', getUser);
 
@@ -20,6 +20,6 @@ router.patch('/event', updateEvent);
 
 router.delete('/event', deleteEvent);
 
-router.use('/', express.static('templates'));
+router.use('/', express.static(process.cwd() + '/templates'));
 
 export { router };
