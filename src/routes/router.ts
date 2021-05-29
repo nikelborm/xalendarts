@@ -20,6 +20,6 @@ router.patch('/event', updateEvent);
 
 router.delete('/event', deleteEvent);
 
-router.use('/', express.static(process.cwd() + '/templates'));
+router.use('/', express.static(process.cwd() + 'templates'));
 
 export { router };

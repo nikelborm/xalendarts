@@ -17,4 +17,4 @@ router.get('/meetings', meeting_1.getMeetings);
 router.post('/event', event_1.setEvent);
 router.patch('/event', event_1.updateEvent);
 router.delete('/event', event_1.deleteEvent);
-router.use('/', express_1.default.static(process.cwd() + '/templates'));
+router.use('/', express_1.default.static(process.cwd() + 'templates'));
