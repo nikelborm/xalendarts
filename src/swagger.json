@@ -27,22 +27,93 @@
           "type": "string"
         }
       }
+    },
+
+    "Event": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+
+        "color": {
+          "type": "string"
+        },
+
+        "aud": {
+          "type": "string"
+        },
+
+        "link": {
+          "type": "string"
+        },
+
+        "teacher": {
+          "type": "string"
+        },
+
+        "module_name": {
+          "type": "string"
+        },
+
+        "theme": {
+          "type": "string"
+        },
+
+        "start_time": {
+          "type": "string"
+        },
+
+        "end_time": {
+          "type": "string"
+        },
+
+        "date": {
+          "type": "string"
+        },
+
+        "id": {
+          "type": "number"
+        },
+
+        "meeting_id": {
+          "type": "number"
+        },
+
+        "user_id": {
+          "type": "array"
+        }
+      }
+    },
+
+    "Meeting": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+
+        "start_time": {
+          "type": "string"
+        },
+
+        "end_time": {
+          "type": "string"
+        }
+      }
     }
   },
 
   "paths": {
-    "/events": {
+    "/user": {
       "get": {
-        "tags": ["Event"],
-        "summary": "Get all events in the specified range.",
+        "tags": ["User"],
+        "summary": "Get the user info with the specified user_id",
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "example": {
-                "id": 1,
-                "role": "student"
-              }
+              "$ref": "#/definitions/User"
             }
           }
         }
