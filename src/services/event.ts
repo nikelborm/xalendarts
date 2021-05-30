@@ -1,11 +1,5 @@
-import { Op, Optional } from 'sequelize';
+import { Op } from 'sequelize';
 import { Event } from '../db/models/event';
-
-interface EventAttributes {
-  id: number;
-}
-
-interface UserCreationAttributes extends Optional<EventAttributes, 'id'> {}
 
 export async function getRagedEvents(
   userId: string,
@@ -92,7 +86,7 @@ export async function updateCurrentEvent(
     }
   );
 
-  return updatedEvent;
+  return { id: id };
 }
 
 export async function deleteCurrentEvent(eventId: any) {

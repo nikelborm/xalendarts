@@ -15,7 +15,7 @@ const event_1 = require("../services/event");
 function getEvents(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const events = yield event_1.getRagedEvents(req.query.userId, req.query.startDate, req.query.endDate);
-        const error = error_1.getError('Events not found', '404');
+        const error = error_1.getError('Not found', '400');
         if (events === null) {
             res.end(error);
         }
@@ -46,8 +46,11 @@ exports.setEvent = setEvent;
 function deleteEvent(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const deletedEvent = yield event_1.deleteCurrentEvent(req.query.id);
-        res.header('Content-Type', 'application/json; charset=utf-8');
-        res.end(JSON.stringify(deletedEvent));
+        if (deletedEvent == 1) {
+            res.header('Content-Type', 'application/json; charset=utf-8');
+            res.end('{"responce": 1}');
+        }
+        //res.end(JSON.stringify(deletedEvent));
     });
 }
 exports.deleteEvent = deleteEvent;

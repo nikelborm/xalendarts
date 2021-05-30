@@ -14,7 +14,7 @@ export async function getEvents(req: Request, res: Response) {
     req.query.endDate as string
   );
 
-  const error = getError('Events not found', '404');
+  const error = getError('Not found', '400');
 
   if (events === null) {
     res.end(error);
@@ -67,6 +67,10 @@ export async function setEvent(req: Request, res: Response) {
 export async function deleteEvent(req: Request, res: Response) {
   const deletedEvent = await deleteCurrentEvent(req.query.id);
 
-  res.header('Content-Type', 'application/json; charset=utf-8');
-  res.end(JSON.stringify(deletedEvent));
+  if (deletedEvent == 1) {
+    res.header('Content-Type', 'application/json; charset=utf-8');
+    res.end('{"responce": 1}');
+  }
+
+  //res.end(JSON.stringify(deletedEvent));
 }

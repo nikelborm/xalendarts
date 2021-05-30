@@ -5,7 +5,7 @@ import { getError } from './error';
 export async function getUser(req: Request, res: Response) {
   const user = await userInfo(req.query.fullName as string);
 
-  const error = getError('User not found', '404');
+  const error = getError('Not found', '400');
 
   if (user === null) {
     res.end(error);

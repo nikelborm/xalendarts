@@ -75,7 +75,7 @@ function updateCurrentEvent(id, userId, date, startTime, endTime, name, color, a
                 },
             },
         });
-        return updatedEvent;
+        return { id: id };
     });
 }
 exports.updateCurrentEvent = updateCurrentEvent;
