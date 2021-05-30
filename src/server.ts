@@ -7,18 +7,19 @@ import swaggerJSDoc from 'swagger-jsdoc';
 export function initialize() {
   const server = express();
   const options = {
-    info: {
-      title: 'Xalendar Official API Docs',
-      version: '1.0.0',
-      description: 'Happy Hacking!',
-    },
-
-    servers: [
-      {
-        url: 'https://xalendar.herokuapp.com',
+    definition: {
+      info: {
+        title: 'Xalendar Official API Docs',
+        version: '1.0.0',
+        description: 'Happy Hacking!',
       },
-    ],
 
+      servers: [
+        {
+          url: 'https://xalendar.herokuapp.com',
+        },
+      ],
+    },
     apis: ['./routes/*.js'],
   };
 
