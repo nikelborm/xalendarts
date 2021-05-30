@@ -1,7 +1,6 @@
 import express from 'express';
 import { router } from './routes/router';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDoc from './swagger.json';
 import swaggerJSDoc from 'swagger-jsdoc';
 
 export function initialize() {
