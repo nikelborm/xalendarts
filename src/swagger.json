@@ -105,6 +105,40 @@
   },
 
   "paths": {
+    "/user": {
+      "get": {
+        "parameters": [
+          {
+            "name": "fullName",
+            "in": "query",
+            "required": true,
+            "description": "Full name of user.",
+            "type": "string"
+          }
+        ],
+        "tags": ["Event"],
+
+        "summary": "Get all events from the specified range",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+
+          "400": {
+            "description": "Bad get info",
+            "schema": {
+              "example": {
+                "message": "Not found",
+                "type": "400"
+              }
+            }
+          }
+        }
+      }
+    },
     "/event": {
       "post": {
         "tags": ["Event"],
