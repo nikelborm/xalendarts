@@ -183,7 +183,9 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/event": {
             "patch": {
                 "tags": ["Event"],
                 "summary": "Update specified event",
