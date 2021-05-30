@@ -17,7 +17,7 @@
     "swagger-express-ts": "^1.1.0",
     "swagger-jsdoc": "*"
   },
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-production": "node ./dist/app.js"
