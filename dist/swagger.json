@@ -116,7 +116,21 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Event"
+                            "example": {
+                                "id": 5,
+                                "name": "Практика IT",
+                                "color": "#232323",
+                                "aud": "Онлайн",
+                                "link": "www.discord.com",
+                                "teacher": "Воробьев А.И.",
+                                "moduleName": "Мел",
+                                "theme": "Работа с State, Redux",
+                                "startTime": "14:15:00",
+                                "endTime": "15:50:00",
+                                "date": "2021-05-28",
+                                "userId": ["269788", "256720"],
+                                "meeting_id": "5"
+                            }
                         }
                     },
                     "400": {
