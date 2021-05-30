@@ -7,26 +7,10 @@ exports.initialize = void 0;
 const express_1 = __importDefault(require("express"));
 const router_1 = require("./routes/router");
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
-const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
+const swagger_json_1 = __importDefault(require("./swagger.json"));
 function initialize() {
     const server = express_1.default();
-    const options = {
-        definition: {
-            info: {
-                title: 'Xalendar Official API Docs',
-                version: '1.0.0',
-                description: 'Happy Hacking!',
-            },
-            servers: [
-                {
-                    url: 'https://xalendar.herokuapp.com',
-                },
-            ],
-        },
-        apis: ['./routes/router.js'],
-    };
-    const specs = swagger_jsdoc_1.default(options);
-    server.use('/docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(specs));
+    server.use('/docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_json_1.default));
     server.use(express_1.default.json());
     server.listen(process.env.PORT || 3000, () => {
         console.log('Server has been started');
