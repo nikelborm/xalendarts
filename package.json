@@ -13,9 +13,9 @@
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.6.2",
-    "swagger-ui-express": "^4.1.6",
     "swagger-express-ts": "^1.1.0",
-    "swagger-jsdoc": "*"
+    "swagger-jsdoc": "^7.0.0-rc.6",
+    "swagger-ui-express": "^4.1.6"
   },
   "main": "index.js",
   "scripts": {
