@@ -7,8 +7,6 @@ import { getMeetings } from './meeting';
 
 const router = express.Router();
 
-console.log(__dirname);
-
 router.use(express.static(__dirname + '/templates'));
 
 router.get('/', function (req, res) {

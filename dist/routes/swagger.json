@@ -1,0 +1,32 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Xalendar Official API docs"
+    },
+    "host": "localhost:3000",
+    "tags": [
+        {
+            "name": "Event"
+        }
+    ],
+    "paths": {
+        "/events": {
+            "get": {
+                "tags": ["Event"],
+                "summary": "Get all events in the specified range.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "example": {
+                                "id": 1,
+                                "role": "student"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
