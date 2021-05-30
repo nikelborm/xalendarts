@@ -14,7 +14,7 @@ const user_1 = require("../db/models/user");
 function userInfo(username) {
     return __awaiter(this, void 0, void 0, function* () {
         const user = yield user_1.User.findOne({
-            attributes: ['user_id', 'type'],
+            attributes: ['user_id', 'type', 'full_name'],
             where: {
                 full_name: username,
             },
