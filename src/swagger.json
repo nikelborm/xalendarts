@@ -116,7 +116,7 @@
             "type": "string"
           }
         ],
-        "tags": ["Event"],
+        "tags": ["User"],
 
         "summary": "Get all events from the specified range",
         "responses": {
@@ -139,15 +139,151 @@
         }
       }
     },
-    "/event": {
-      "post": {
+
+    "/events": {
+      "get": {
         "tags": ["Event"],
-        "summary": "Post the event to the system.",
+        "summary": "Get all events in the specified range",
+
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "description": "269788",
+            "type": "string"
+          },
+
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": true,
+            "description": "2021-05-20",
+            "type": "string"
+          },
+
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "description": "2021-05-31",
+            "type": "string"
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "example": [
+                {
+                  "name": "Лекция IT",
+                  "id": 1,
+                  "color": "#696969",
+                  "aud": "Онлайн",
+                  "link": "www.discord.com",
+                  "teacher": "Воробьев А.И.",
+                  "module_name": "Мел",
+                  "theme": "Введение в git",
+                  "start_time": "12:00:00",
+                  "end_time": "13:35:00",
+                  "date": "2021-05-28",
+                  "user_id": ["269788"],
+                  "meeting_id": 1
+                },
+                {
+                  "name": "Практика IT",
+                  "id": 5,
+                  "color": "#232323",
+                  "aud": "Онлайн",
+                  "link": "www.discord.com",
+                  "teacher": "Воробьев А.И.",
+                  "module_name": "Мел",
+                  "theme": "Работа с State, Redux",
+                  "start_time": "14:15:00",
+                  "end_time": "15:50:00",
+                  "date": "2021-05-28",
+                  "user_id": ["269788", "256720"],
+                  "meeting_id": 4
+                }
+              ]
+            }
+          }
+        }
+      },
+
+      "patch": {
+        "tags": ["Event"],
+        "summary": "Update specified event",
         "parameters": [
           {
             "in": "body",
             "name": "body",
-            "description": "Event what you want to create",
+            "description": "Updated json",
+            "schema": {
+              "example": {
+                "id": 5,
+                "name": "Практика IT",
+                "color": "#232323",
+                "aud": "Онлайн",
+                "link": "www.discord.com",
+                "teacher": "Воробьев А.И.",
+                "moduleName": "Мел",
+                "theme": "Работа с State, Redux",
+                "startTime": "14:15:00",
+                "endTime": "15:50:00",
+                "date": "2021-05-28",
+                "userId": ["269788", "256720"]
+              }
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "example": {
+                "id": 5
+              }
+            }
+          }
+        }
+      },
+
+      "delete": {
+        "tags": ["Event"],
+        "summary": "Delete event from the system.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "description": "Event id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "example": {
+                "responce": 1
+              }
+            }
+          }
+        }
+      },
+
+      "post": {
+        "tags": ["Event"],
+        "summary": "Post event to the system.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Post json",
             "schema": {
               "example": {
                 "name": "Практика IT",

@@ -15,7 +15,7 @@ const error_1 = require("./error");
 function getUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const user = yield user_1.userInfo(req.query.fullName);
-        const error = error_1.getError('User not found', '404');
+        const error = error_1.getError('Not found', '400');
         if (user === null) {
             res.end(error);
         }
