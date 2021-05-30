@@ -20,7 +20,7 @@ export function initialize() {
         },
       ],
     },
-    apis: ['./routes/*.js'],
+    apis: ['./routes/router.js'],
   };
 
   const specs = swaggerJSDoc(options);

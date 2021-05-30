@@ -23,7 +23,7 @@ function initialize() {
                 },
             ],
         },
-        apis: ['./routes/*.js'],
+        apis: ['./routes/router.js'],
     };
     const specs = swagger_jsdoc_1.default(options);
     server.use('/docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(specs));
