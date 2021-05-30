@@ -8,6 +8,10 @@ exports.Event = connection_1.sequelize.define('Event', {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
+    id: {
+        type: sequelize_1.DataTypes.INTEGER,
+        primaryKey: true,
+    },
     color: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
@@ -42,10 +46,6 @@ exports.Event = connection_1.sequelize.define('Event', {
     date: {
         type: sequelize_1.DataTypes.DATEONLY,
         allowNull: false,
-    },
-    id: {
-        type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true,
     },
     user_id: {
         type: sequelize_1.DataTypes.ARRAY(sequelize_1.DataTypes.TEXT),

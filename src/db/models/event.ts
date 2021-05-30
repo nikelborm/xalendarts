@@ -9,6 +9,11 @@ export const Event = sequelize.define(
       allowNull: false,
     },
 
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
+
     color: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -51,11 +56,6 @@ export const Event = sequelize.define(
     date: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-    },
-
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
     },
 
     user_id: {

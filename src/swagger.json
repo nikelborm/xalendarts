@@ -7,7 +7,7 @@
   "host": "localhost:3000",
   "tags": [
     {
-      "name": "Event"
+      "name": "User"
     }
   ],
 
@@ -105,16 +105,45 @@
   },
 
   "paths": {
-    "/user": {
-      "get": {
-        "tags": ["User"],
-        "summary": "Get the user info with the specified user_id",
+    "/event": {
+      "post": {
+        "tags": ["Event"],
+        "summary": "Post the event to the system.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Event what you want to create",
+            "schema": {
+              "example": {
+                "name": "Практика IT",
+                "color": "#232323",
+                "aud": "Онлайн",
+                "link": "www.discord.com",
+                "teacher": "Воробьев А.И.",
+                "moduleName": "Мел",
+                "theme": "Работа с State, Redux",
+                "startTime": "14:15:00",
+                "endTime": "15:50:00",
+                "date": "2021-05-28",
+                "userId": ["269788", "256720"]
+              }
+            }
+          }
+        ],
+
+        "produces": ["application/json"],
+
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "$/definitions/Event"
             }
+          },
+
+          "400": {
+            "description": "Failed. Bad post data"
           }
         }
       }
