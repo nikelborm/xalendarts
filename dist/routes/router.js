@@ -11,7 +11,6 @@ const event_1 = require("./event");
 const meeting_1 = require("./meeting");
 const router = express_1.default.Router();
 exports.router = router;
-console.log(__dirname);
 router.use(express_1.default.static(__dirname + '/templates'));
 router.get('/', function (req, res) {
     res.sendFile(path_1.default.join(__dirname, 'templates', 'index.html'));
