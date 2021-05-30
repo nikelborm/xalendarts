@@ -116,7 +116,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "$/definitions/Event"
+                            "$ref": "#/definitions/Event"
                         }
                     },
                     "400": {
