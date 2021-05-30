@@ -1,7 +1,11 @@
-import { AnyRecordWithTtl } from 'dns';
-import { Op } from 'sequelize';
+import { Op, Optional } from 'sequelize';
 import { Event } from '../db/models/event';
-import { updateEvent } from '../routes/event';
+
+interface EventAttributes {
+  id: number;
+}
+
+interface UserCreationAttributes extends Optional<EventAttributes, 'id'> {}
 
 export async function getRagedEvents(
   userId: string,
