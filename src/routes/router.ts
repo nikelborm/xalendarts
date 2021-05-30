@@ -10,24 +10,25 @@ const router = express.Router();
 /**
  * @swagger
  * components:
- *    schemas:
- *       User:
- *          type: object
- *          required:
- *            - fullName
- *          properties:
- *              user_id:
- *                type: number
- *                description: user id on a system.
- *              type:
- *                type: string
- *                description: user type (student or teacher)
- *              full_name:
- *                type: string
- *                description: Full name of user.
- *          example:
- *            id: 228228
- *            type: student
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - fullName
+ *       properties:
+ *         user_id:
+ *           type: number
+ *           description: user id on a system.
+ *         type:
+ *           type: string
+ *           description: user type (student or teacher)
+ *         full_name:
+ *           type: string
+ *           description: Full name of user.
+ *       example:
+ *         id: 228228
+ *         type: student
+ *         full_name: Иванов Иван Иванович
  *
  */
 
