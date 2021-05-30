@@ -11,45 +11,6 @@ const event_1 = require("./event");
 const meeting_1 = require("./meeting");
 const router = express_1.default.Router();
 exports.router = router;
-/**
- * @swagger
- * components:
- *   schemas:
- *     User:
- *       type: object
- *       required:
- *         - fullName
- *       properties:
- *         user_id:
- *           type: number
- *           description: user id on a system.
- *         type:
- *           type: string
- *           description: user type (student or teacher)
- *         full_name:
- *           type: string
- *           description: Full name of user.
- *       example:
- *         id: 228228
- *         type: student
- *         full_name: Иванов Иван Иванович
- *
- */
-/**
- * @swagger
- * /user:
- *  get:
- *    summary: Returns user_id and type
- *    responses:
- *      200:
- *        description: The info of the user
- *        content:
- *          application/json:
- *            schema:
- *              type: array
- *              items:
- *                $ref: '#/components/schemas/User'
- */
 router.use(express_1.default.static(__dirname + '/templates'));
 router.get('/', function (req, res) {
     res.sendFile(path_1.default.join(__dirname, 'templates', 'index.html'));
