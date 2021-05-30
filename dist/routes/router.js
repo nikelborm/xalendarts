@@ -35,6 +35,21 @@ exports.router = router;
  *         full_name: Иванов Иван Иванович
  *
  */
+/**
+ * @swagger
+ * /user:
+ *  get:
+ *    summary: Returns user_id and type
+ *    responses:
+ *      200:
+ *        description: The info of the user
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/User'
+ */
 router.use(express_1.default.static(__dirname + '/templates'));
 router.get('/', function (req, res) {
     res.sendFile(path_1.default.join(__dirname, 'templates', 'index.html'));

@@ -32,6 +32,22 @@ const router = express.Router();
  *
  */
 
+/**
+ * @swagger
+ * /user:
+ *  get:
+ *    summary: Returns user_id and type
+ *    responses:
+ *      200:
+ *        description: The info of the user
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/User'
+ */
+
 router.use(express.static(__dirname + '/templates'));
 
 router.get('/', function (req, res) {
