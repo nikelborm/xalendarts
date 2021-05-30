@@ -15,7 +15,7 @@ const meeting_1 = require("../services/meeting");
 function getMeetings(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const meetings = yield meeting_1.getAvaliableMeetings(req.query.userId);
-        const error = error_1.getError(`Couldn't find meetings`, '404');
+        const error = error_1.getError(`Couldn't find meetings`, '400');
         if (meetings === null) {
             res.end(error);
         }

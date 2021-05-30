@@ -85,6 +85,54 @@
         }
     },
     "paths": {
+        "/meetings": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "required": true,
+                        "description": "269788",
+                        "type": "string"
+                    }
+                ],
+                "tags": ["Meetings"],
+                "summary": "Get all meetings for specified user",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "example": [
+                                {
+                                    "name": "Практика IT",
+                                    "start_time": "14:15:00",
+                                    "end_time": "15:50:00"
+                                },
+                                {
+                                    "name": "Практика IT",
+                                    "start_time": "14:15:00",
+                                    "end_time": "15:50:00"
+                                },
+                                {
+                                    "name": "Практика IT",
+                                    "start_time": "14:15:00",
+                                    "end_time": "15:50:00"
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Uncorrect userId",
+                        "schema": {
+                            "example": {
+                                "message": "Couldn't find meetings",
+                                "type": "400"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/user": {
             "get": {
                 "parameters": [
