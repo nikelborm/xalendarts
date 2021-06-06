@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "title": "Xalendar Official API docs"
   },
-  "host": "xalendar.herokuapp.com",
+  "host": "localhost:5000",
   "tags": [
     {
       "name": "User"
@@ -32,8 +32,13 @@
     "Event": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "number"
+        },
+
         "name": {
-          "type": "string"
+          "type": "string",
+          "description": "Lesson name"
         },
 
         "color": {
@@ -41,7 +46,8 @@
         },
 
         "aud": {
-          "type": "string"
+          "type": "string",
+          "description": "Audition for the lesson"
         },
 
         "link": {
@@ -49,105 +55,99 @@
         },
 
         "teacher": {
-          "type": "string"
-        },
-
-        "module_name": {
-          "type": "string"
+          "type": "string",
+          "description": "Teacher short full name"
         },
 
         "theme": {
           "type": "string"
         },
 
-        "start_time": {
+        "start_date": {
           "type": "string"
         },
 
-        "end_time": {
+        "end_date": {
           "type": "string"
         },
 
-        "date": {
-          "type": "string"
-        },
+        "module_id": {
+          "type": "number",
+          "description": "Id of the module to which the event belongs"
+        }
+      }
+    },
 
+    "Module": {
+      "type": "object",
+      "properties": {
         "id": {
           "type": "number"
         },
 
-        "meeting_id": {
-          "type": "number"
+        "name": {
+          "type": "string"
         },
 
         "user_id": {
           "type": "array"
         }
       }
-    },
-
-    "Meeting": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-
-        "start_time": {
-          "type": "string"
-        },
-
-        "end_time": {
-          "type": "string"
-        }
-      }
     }
   },
 
   "paths": {
-    "/meetings": {
+    "/modules": {
       "get": {
         "parameters": [
           {
             "name": "userId",
             "in": "query",
             "required": true,
-            "description": "269788",
+            "description": "Id of the user (example: 269788)",
             "type": "string"
           }
         ],
-        "tags": ["Meetings"],
-        "summary": "Get all meetings for specified user",
+        "tags": ["Module"],
+        "summary": "Get all modules for specified user",
 
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "example": [
-                {
-                  "name": "Практика IT",
-                  "start_time": "14:15:00",
-                  "end_time": "15:50:00"
-                },
-                {
-                  "name": "Практика IT",
-                  "start_time": "14:15:00",
-                  "end_time": "15:50:00"
-                },
-                {
-                  "name": "Практика IT",
-                  "start_time": "14:15:00",
-                  "end_time": "15:50:00"
-                }
-              ]
+              "example": []
             }
-          },
-          "400": {
-            "description": "Uncorrect userId",
+          }
+        }
+      }
+    },
+
+    "/module": {
+      "post": {
+        "tags": ["Module"],
+        "summary": "Create module for events",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Post json",
             "schema": {
               "example": {
-                "message": "Couldn't find meetings",
-                "type": "400"
+                "name": "Великие книги",
+                "userId": ["256720"]
+              }
+            }
+          }
+        ],
+
+        "produces": ["application/json"],
+
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "example": {
+                "id": 5
               }
             }
           }
@@ -155,20 +155,67 @@
       }
     },
 
-    "/user": {
+    "/module/{id}/event": {
+      "post": {
+        "tags": ["Module"],
+        "summary": "Create event for specified module",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Id of the module",
+            "required": true,
+            "type": "number"
+          },
+
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Post json",
+            "schema": {
+              "example": {
+                "name": "Практика IT",
+                "color": "#232323",
+                "aud": "Онлайн",
+                "link": "www.discord.com",
+                "teacher": "Воробьев А.И.",
+                "theme": "Работа с Vue.js",
+                "startTime": "2021-06-05T08:30:00.000Z",
+                "endTime": "2021-06-05T10:15:00.000Z"
+              }
+            }
+          }
+        ],
+
+        "produces": ["application/json"],
+
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "example": {
+                "id": 5
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/user/{userId}": {
       "get": {
         "parameters": [
           {
-            "name": "fullName",
-            "in": "query",
+            "name": "userId",
+            "in": "path",
             "required": true,
-            "description": "Full name of user.",
+            "description": "Id of the user",
             "type": "string"
           }
         ],
         "tags": ["User"],
 
-        "summary": "Get all events from the specified range",
+        "summary": "Get specified user.",
         "responses": {
           "200": {
             "description": "OK",
@@ -177,13 +224,10 @@
             }
           },
 
-          "400": {
-            "description": "Bad get info",
+          "404": {
+            "description": "Not Found",
             "schema": {
-              "example": {
-                "message": "Not found",
-                "type": "400"
-              }
+              "example": {}
             }
           }
         }
@@ -200,7 +244,7 @@
             "name": "userId",
             "in": "query",
             "required": true,
-            "description": "269788",
+            "description": "If of the user (example: 269788)",
             "type": "string"
           },
 
@@ -208,15 +252,15 @@
             "name": "startDate",
             "in": "query",
             "required": true,
-            "description": "2021-05-20",
+            "description": "Start date (example: 2021-05-02)",
             "type": "string"
           },
 
           {
             "name": "endDate",
             "in": "query",
-            "required": false,
-            "description": "2021-05-31",
+            "required": true,
+            "description": "End date (example: 2021-05-31)",
             "type": "string"
           }
         ],
@@ -227,34 +271,28 @@
             "schema": {
               "example": [
                 {
-                  "name": "Лекция IT",
                   "id": 1,
+                  "name": "Лекция IT",
                   "color": "#696969",
                   "aud": "Онлайн",
                   "link": "www.discord.com",
                   "teacher": "Воробьев А.И.",
-                  "module_name": "Мел",
                   "theme": "Введение в git",
-                  "start_time": "12:00:00",
-                  "end_time": "13:35:00",
-                  "date": "2021-05-28",
-                  "user_id": ["269788"],
-                  "meeting_id": 1
+                  "start_time": "2021-05-28 12:00:00",
+                  "end_time": "2021-05-28 13:35:00",
+                  "module_id": 1
                 },
                 {
+                  "id": 2,
                   "name": "Практика IT",
-                  "id": 5,
-                  "color": "#232323",
+                  "color": "#696969",
                   "aud": "Онлайн",
                   "link": "www.discord.com",
                   "teacher": "Воробьев А.И.",
-                  "module_name": "Мел",
                   "theme": "Работа с State, Redux",
-                  "start_time": "14:15:00",
-                  "end_time": "15:50:00",
-                  "date": "2021-05-28",
-                  "user_id": ["269788", "256720"],
-                  "meeting_id": 4
+                  "start_time": "2021-05-29 14:15:00",
+                  "end_time": "2021-05-29 15:50:00",
+                  "module_id": 1
                 }
               ]
             }
@@ -262,29 +300,33 @@
         }
       }
     },
-    "/event": {
+
+    "/event/{id}": {
       "patch": {
         "tags": ["Event"],
         "summary": "Update specified event",
         "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Id of the users",
+            "required": true,
+            "type": "string"
+          },
+
           {
             "in": "body",
             "name": "body",
             "description": "Updated json",
             "schema": {
               "example": {
-                "id": 5,
                 "name": "Практика IT",
-                "color": "#232323",
+                "color": "#696969",
                 "aud": "Онлайн",
                 "link": "www.discord.com",
-                "teacher": "Воробьев А.И.",
-                "moduleName": "Мел",
-                "theme": "Работа с State, Redux",
-                "startTime": "14:15:00",
-                "endTime": "15:50:00",
-                "date": "2021-05-28",
-                "userId": ["269788", "256720"]
+                "theme": "Работа с Angular.js",
+                "startTime": "2021-05-28T8:30:00.000Z",
+                "endTime": "2021-05-28T10:15:00.000Z"
               }
             }
           }
@@ -295,7 +337,16 @@
             "description": "OK",
             "schema": {
               "example": {
-                "id": 5
+                "id": 1,
+                "name": "Практика IT",
+                "color": "#696969",
+                "aud": "Онлайн",
+                "link": "www.discord.com",
+                "teacher": "Воробьев А.И.",
+                "theme": "Работа с Angular.js",
+                "start_time": "2021-05-29 14:15:00",
+                "end_time": "2021-05-29 15:50:00",
+                "module_id": 1
               }
             }
           }
@@ -304,10 +355,10 @@
 
       "delete": {
         "tags": ["Event"],
-        "summary": "Delete event from the system.",
+        "summary": "Delete specified event from the system.",
         "parameters": [
           {
-            "in": "query",
+            "in": "path",
             "name": "id",
             "description": "Event id",
             "required": true,
@@ -316,69 +367,81 @@
         ],
 
         "responses": {
-          "200": {
-            "description": "OK",
+          "204": {
+            "description": "No content",
             "schema": {
-              "example": {
-                "responce": 1
-              }
+              "example": {}
             }
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
-      },
+      }
+    },
 
-      "post": {
-        "tags": ["Event"],
-        "summary": "Post event to the system.",
+    "/module/{id}": {
+      "delete": {
+        "tags": ["Module"],
+        "summary": "Delete specified event",
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Id of the module",
+            "type": "number"
+          }
+        ],
+
+        "responses": {
+          "204": {
+            "description": "No content",
+            "schema": {
+              "example": {}
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+
+    "/module/{id}/users": {
+      "patch": {
+        "tags": ["Module"],
+        "summary": "Add user to module",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Id of the module",
+            "type": "number"
+          },
+          {
             "in": "body",
-            "name": "body",
-            "description": "Post json",
+            "name": "JSON data",
+            "description": "Updated json",
             "schema": {
               "example": {
-                "name": "Практика IT",
-                "color": "#232323",
-                "aud": "Онлайн",
-                "link": "www.discord.com",
-                "teacher": "Воробьев А.И.",
-                "moduleName": "Мел",
-                "theme": "Работа с State, Redux",
-                "startTime": "14:15:00",
-                "endTime": "15:50:00",
-                "date": "2021-05-28",
-                "userId": ["269788", "256720"]
+                "userId": "256720"
               }
             }
           }
         ],
-
-        "produces": ["application/json"],
 
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
               "example": {
-                "id": 5,
-                "name": "Практика IT",
-                "color": "#232323",
-                "aud": "Онлайн",
-                "link": "www.discord.com",
-                "teacher": "Воробьев А.И.",
-                "moduleName": "Мел",
-                "theme": "Работа с State, Redux",
-                "startTime": "14:15:00",
-                "endTime": "15:50:00",
-                "date": "2021-05-28",
-                "userId": ["269788", "256720"],
-                "meeting_id": "5"
+                "id": 1,
+                "name": "Мел",
+                "userId": ["269788", "256720"]
               }
             }
-          },
-
-          "400": {
-            "description": "Failed. Bad post data"
           }
         }
       }

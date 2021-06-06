@@ -11,16 +11,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUser = void 0;
 const user_1 = require("../services/user");
-const error_1 = require("./error");
 function getUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user = yield user_1.userInfo(req.query.fullName);
-        const error = error_1.getError('Not found', '400');
+        res.header('Access-Control-Allow-Origin');
+        res.header('Content-Type', 'application/json; charset=utf-8');
+        const user = yield user_1.userInfo(req.params.userId);
         if (user === null) {
-            res.end(error);
+            res.status(404).end();
         }
         else {
-            res.header('Content-Type', 'application/json; charset=utf-8');
             res.end(JSON.stringify(user));
         }
     });

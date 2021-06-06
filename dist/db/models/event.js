@@ -8,10 +8,6 @@ exports.Event = connection_1.sequelize.define('Event', {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
-    id: {
-        type: sequelize_1.DataTypes.INTEGER,
-        primaryKey: true,
-    },
     color: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
@@ -23,36 +19,29 @@ exports.Event = connection_1.sequelize.define('Event', {
     link: {
         type: sequelize_1.DataTypes.STRING,
     },
-    teacher: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
-    },
-    module_name: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
-    },
     theme: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
-    start_time: {
-        type: sequelize_1.DataTypes.TIME,
+    teacher: {
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
-    end_time: {
-        type: sequelize_1.DataTypes.TIME,
+    start_date: {
+        type: sequelize_1.DataTypes.DATE,
         allowNull: false,
     },
-    date: {
-        type: sequelize_1.DataTypes.DATEONLY,
+    end_date: {
+        type: sequelize_1.DataTypes.DATE,
         allowNull: false,
     },
-    user_id: {
-        type: sequelize_1.DataTypes.ARRAY(sequelize_1.DataTypes.TEXT),
-        allowNull: false,
-    },
-    meeting_id: {
+    id: {
         type: sequelize_1.DataTypes.INTEGER,
+        primaryKey: true,
+    },
+    module_id: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: false,
     },
 }, {
     tableName: 'events',

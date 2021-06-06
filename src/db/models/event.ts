@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Sequelize } from 'sequelize';
 import { sequelize } from '../connection';
 
 export const Event = sequelize.define(
@@ -7,11 +7,6 @@ export const Event = sequelize.define(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
     },
 
     color: {
@@ -28,43 +23,34 @@ export const Event = sequelize.define(
       type: DataTypes.STRING,
     },
 
-    teacher: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    module_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
     theme: {
       type: DataTypes.STRING,
       allowNull: false,
     },
 
-    start_time: {
-      type: DataTypes.TIME,
+    teacher: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
 
-    end_time: {
-      type: DataTypes.TIME,
+    start_date: {
+      type: DataTypes.DATE,
       allowNull: false,
     },
 
-    date: {
-      type: DataTypes.DATEONLY,
+    end_date: {
+      type: DataTypes.DATE,
       allowNull: false,
     },
 
-    user_id: {
-      type: DataTypes.ARRAY(DataTypes.TEXT),
-      allowNull: false,
-    },
-
-    meeting_id: {
+    id: {
       type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
+
+    module_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
   },
   {

@@ -1,10 +1,13 @@
+import { Op } from 'sequelize';
 import { User } from '../db/models/user';
 
-export async function userInfo(username: string) {
+export async function userInfo(id: any) {
   const user = await User.findOne({
     attributes: ['user_id', 'type', 'full_name'],
     where: {
-      full_name: username,
+      user_id: {
+        [Op.eq]: id as number,
+      },
     },
   });
 

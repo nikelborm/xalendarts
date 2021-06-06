@@ -9,65 +9,52 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setCurrentEvent = exports.deleteCurrentEvent = exports.updateCurrentEvent = exports.getRagedEvents = void 0;
+exports.setCurrentEvent = exports.deleteCurrentEvent = exports.updateCurrentEvent = exports.selectEvents = exports.selectCurrentEvent = void 0;
 const sequelize_1 = require("sequelize");
+const connection_1 = require("../db/connection");
 const event_1 = require("../db/models/event");
-function getRagedEvents(userId, startDate, endDate) {
+function selectCurrentEvent(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log('type ' + typeof endDate);
-        console.log(endDate);
-        if (typeof endDate == typeof undefined) {
-            const event = yield event_1.Event.findAll({
-                where: {
-                    date: {
-                        [sequelize_1.Op.eq]: startDate,
-                    },
-                    user_id: {
-                        [sequelize_1.Op.contains]: [userId],
-                    },
-                },
-            });
-            if (JSON.stringify(event) == '[]') {
-                return null;
-            }
-            else {
-                return event;
-            }
-        }
-        const events = yield event_1.Event.findAll({
+        const event = yield event_1.Event.findOne({
             where: {
-                date: {
-                    [sequelize_1.Op.gte]: startDate,
-                    [sequelize_1.Op.lte]: endDate,
-                },
-                user_id: {
-                    [sequelize_1.Op.contains]: [userId],
+                id: {
+                    [sequelize_1.Op.eq]: id,
                 },
             },
         });
-        if (JSON.stringify(events) == '[]') {
-            return null;
-        }
-        else {
-            return events;
-        }
+        return event;
     });
 }
-exports.getRagedEvents = getRagedEvents;
-function updateCurrentEvent(id, userId, date, startTime, endTime, name, color, aud, link, teacher, moduleName, theme) {
+exports.selectCurrentEvent = selectCurrentEvent;
+function selectEvents(id, startDate, endDate) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const events = yield event_1.Event.findAll({
+            where: {
+                module_id: {
+                    [sequelize_1.Op.eq]: id,
+                },
+                start_date: {
+                    [sequelize_1.Op.gte]: Date.parse(startDate),
+                },
+                end_date: {
+                    [sequelize_1.Op.lte]: Date.parse(endDate),
+                },
+            },
+        });
+        return events;
+    });
+}
+exports.selectEvents = selectEvents;
+function updateCurrentEvent(id, startTime, endTime, name, color, aud, link, theme) {
     return __awaiter(this, void 0, void 0, function* () {
         const updatedEvent = yield event_1.Event.update({
             name: name,
             color: color,
             aud: aud,
             link: link,
-            teacher: teacher,
-            module_name: moduleName,
             theme: theme,
             start_time: startTime,
             end_time: endTime,
-            date: date,
-            user_id: userId,
         }, {
             where: {
                 id: {
@@ -75,7 +62,7 @@ function updateCurrentEvent(id, userId, date, startTime, endTime, name, color, a
                 },
             },
         });
-        return { id: id };
+        return updatedEvent;
     });
 }
 exports.updateCurrentEvent = updateCurrentEvent;
@@ -92,35 +79,10 @@ function deleteCurrentEvent(eventId) {
     });
 }
 exports.deleteCurrentEvent = deleteCurrentEvent;
-function setCurrentEvent(userId, date, startTime, endTime, name, color, aud, link, teacher, moduleName, theme) {
+function setCurrentEvent(name, color, aud, link, teacher, theme, startTime, endTime, moduleId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const newEvent = yield event_1.Event.create({
-            name: name,
-            color: color,
-            aud: aud,
-            link: link,
-            teacher: teacher,
-            module_name: moduleName,
-            theme: theme,
-            start_time: startTime,
-            end_time: endTime,
-            date: date,
-            user_id: userId,
-        }, {
-            fields: [
-                'name',
-                'color',
-                'aud',
-                'link',
-                'teacher',
-                'module_name',
-                'theme',
-                'start_time',
-                'end_time',
-                'date',
-                'user_id',
-            ],
-        });
+        const newEvent = connection_1.sequelize.query(`INSERT INTO events (name, color, aud, link, teacher, theme, start_date, end_date, module_id)
+     VALUES ('${name}', '${color}', '${aud}', '${link}', '${teacher}', '${theme}', '${startTime}', '${endTime}', '${moduleId}') RETURNING id;`);
         return newEvent;
     });
 }
