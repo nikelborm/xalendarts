@@ -10,13 +10,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userInfo = void 0;
+const sequelize_1 = require("sequelize");
 const user_1 = require("../db/models/user");
-function userInfo(username) {
+function userInfo(id) {
     return __awaiter(this, void 0, void 0, function* () {
         const user = yield user_1.User.findOne({
             attributes: ['user_id', 'type', 'full_name'],
             where: {
-                full_name: username,
+                user_id: {
+                    [sequelize_1.Op.eq]: id,
+                },
             },
         });
         if (user) {

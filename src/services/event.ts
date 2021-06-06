@@ -1,66 +1,53 @@
+import { Events } from 'pg';
 import { Op } from 'sequelize';
+import { startsWith } from 'sequelize/types/lib/operators';
+import { sequelize } from '../db/connection';
 import { Event } from '../db/models/event';
 
-export async function getRagedEvents(
-  userId: string,
-  startDate: string,
-  endDate?: string
-) {
-  console.log('type ' + typeof endDate);
-  console.log(endDate);
-
-  if (typeof endDate == typeof undefined) {
-    const event = await Event.findAll({
-      where: {
-        date: {
-          [Op.eq]: startDate,
-        },
-
-        user_id: {
-          [Op.contains]: [userId],
-        },
-      },
-    });
-
-    if (JSON.stringify(event) == '[]') {
-      return null;
-    } else {
-      return event;
-    }
-  }
-
-  const events = await Event.findAll({
+export async function selectCurrentEvent(id: any) {
+  const event = await Event.findOne({
     where: {
-      date: {
-        [Op.gte]: startDate,
-        [Op.lte]: endDate,
-      },
-
-      user_id: {
-        [Op.contains]: [userId],
+      id: {
+        [Op.eq]: id as number,
       },
     },
   });
 
-  if (JSON.stringify(events) == '[]') {
-    return null;
-  } else {
-    return events;
-  }
+  return event;
+}
+
+export async function selectEvents(
+  id: number,
+  startDate: string,
+  endDate: string
+) {
+  const events = await Event.findAll({
+    where: {
+      module_id: {
+        [Op.eq]: id,
+      },
+
+      start_date: {
+        [Op.gte]: Date.parse(startDate),
+      },
+
+      end_date: {
+        [Op.lte]: Date.parse(endDate),
+      },
+    },
+  });
+
+  return events;
 }
 
 export async function updateCurrentEvent(
-  id: number,
-  userId: string[],
-  date: string,
+  id: any,
   startTime: string,
   endTime: string,
   name: string,
   color: string,
   aud: string,
   link: string,
-  teacher: string,
-  moduleName: string,
   theme: string
 ) {
   const updatedEvent = await Event.update(
@@ -69,24 +56,20 @@ export async function updateCurrentEvent(
       color: color,
       aud: aud,
       link: link,
-      teacher: teacher,
-      module_name: moduleName,
       theme: theme,
       start_time: startTime,
       end_time: endTime,
-      date: date,
-      user_id: userId,
     },
     {
       where: {
         id: {
-          [Op.eq]: id,
+          [Op.eq]: id as number,
         },
       },
     }
   );
 
-  return { id: id };
+  return updatedEvent;
 }
 
 export async function deleteCurrentEvent(eventId: any) {
@@ -102,47 +85,19 @@ export async function deleteCurrentEvent(eventId: any) {
 }
 
 export async function setCurrentEvent(
-  userId: string[],
-  date: string,
-  startTime: string,
-  endTime: string,
   name: string,
   color: string,
   aud: string,
   link: string,
   teacher: string,
-  moduleName: string,
-  theme: string
+  theme: string,
+  startTime: string,
+  endTime: string,
+  moduleId: any
 ) {
-  const newEvent = await Event.create(
-    {
-      name: name,
-      color: color,
-      aud: aud,
-      link: link,
-      teacher: teacher,
-      module_name: moduleName,
-      theme: theme,
-      start_time: startTime,
-      end_time: endTime,
-      date: date,
-      user_id: userId,
-    },
-    {
-      fields: [
-        'name',
-        'color',
-        'aud',
-        'link',
-        'teacher',
-        'module_name',
-        'theme',
-        'start_time',
-        'end_time',
-        'date',
-        'user_id',
-      ],
-    }
+  const newEvent = sequelize.query(
+    `INSERT INTO events (name, color, aud, link, teacher, theme, start_date, end_date, module_id)
+     VALUES ('${name}', '${color}', '${aud}', '${link}', '${teacher}', '${theme}', '${startTime}', '${endTime}', '${moduleId}') RETURNING id;`
   );
 
   return newEvent;
