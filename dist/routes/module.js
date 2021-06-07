@@ -14,7 +14,7 @@ const module_1 = require("../services/module");
 // return all modules for specified user
 function getModules(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.header('Access-Control-Allow-Origin');
+        res.header('Access-Control-Allow-Origin', '*');
         res.header('Content-Type', 'application/json; charset=utf-8');
         const modules = yield module_1.selectModules(req.query.userId);
         res.end(JSON.stringify(modules));
@@ -24,7 +24,7 @@ exports.getModules = getModules;
 // delete exist Module
 function deleteModule(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.header('Access-Control-Allow-Origin');
+        res.header('Access-Control-Allow-Origin', '*');
         res.header('Content-Type', 'application/json; charset=utf-8');
         const deletedModule = yield module_1.destroyModule(req.params.id);
         if (deletedModule == 1) {
@@ -39,7 +39,7 @@ exports.deleteModule = deleteModule;
 // create new Module
 function postModule(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.header('Access-Control-Allow-Origin');
+        res.header('Access-Control-Allow-Origin', '*');
         res.header('Content-Type', 'application/json; charset=utf-8');
         const module = yield module_1.insertModule(req.body.name, req.body.userId);
         const module_id = JSON.parse(JSON.stringify(module)).id;
@@ -50,7 +50,7 @@ exports.postModule = postModule;
 // add users to Module
 function addUsers(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.header('Access-Control-Allow-Origin');
+        res.header('Access-Control-Allow-Origin', '*');
         res.header('Content-Type', 'application/json; charset=utf-8');
         const updatedModule = yield module_1.updateUsers(req.params.id, req.body.userId);
         if (JSON.stringify(updatedModule) == JSON.stringify([1])) {

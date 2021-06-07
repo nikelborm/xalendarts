@@ -13,7 +13,7 @@ exports.getUser = void 0;
 const user_1 = require("../services/user");
 function getUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        res.header('Access-Control-Allow-Origin');
+        res.header('Access-Control-Allow-Origin', '*');
         res.header('Content-Type', 'application/json; charset=utf-8');
         const user = yield user_1.userInfo(req.params.userId);
         if (user === null) {

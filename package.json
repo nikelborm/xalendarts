@@ -12,6 +12,7 @@
     "fs": "*",
     "inversify": "^4.13.0",
     "inversify-express-utils": "^4.2.2",
+    "moment": "^2.29.1",
     "morgan": "^1.10.0",
     "papaparse": "^5.3.1",
     "pg": "^8.6.0",
