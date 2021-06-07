@@ -52,10 +52,10 @@
                 "theme": {
                     "type": "string"
                 },
-                "start_date": {
+                "startDate": {
                     "type": "string"
                 },
-                "end_date": {
+                "endDate": {
                     "type": "string"
                 },
                 "module_id": {
@@ -221,14 +221,14 @@
                         "name": "startDate",
                         "in": "query",
                         "required": true,
-                        "description": "Start date (example: 2021-05-02)",
+                        "description": "Start date (example: 2021-06-03)",
                         "type": "string"
                     },
                     {
                         "name": "endDate",
                         "in": "query",
                         "required": true,
-                        "description": "End date (example: 2021-05-31)",
+                        "description": "End date (example: 2021-06-05)",
                         "type": "string"
                     }
                 ],
@@ -238,28 +238,28 @@
                         "schema": {
                             "example": [
                                 {
-                                    "id": 1,
-                                    "name": "Лекция IT",
-                                    "color": "#696969",
-                                    "aud": "Онлайн",
-                                    "link": "www.discord.com",
-                                    "teacher": "Воробьев А.И.",
-                                    "theme": "Введение в git",
-                                    "start_time": "2021-05-28 12:00:00",
-                                    "end_time": "2021-05-28 13:35:00",
-                                    "module_id": 1
+                                    "name": "Бег",
+                                    "color": "#232323",
+                                    "aud": "Манеж",
+                                    "link": "",
+                                    "theme": "Бег",
+                                    "teacher": "Минеев А.А",
+                                    "start_date": "2021-06-04T05:30:00.000Z",
+                                    "end_date": "2021-06-04T07:15:00.000Z",
+                                    "id": 18,
+                                    "module_id": 5
                                 },
                                 {
-                                    "id": 2,
-                                    "name": "Практика IT",
-                                    "color": "#696969",
-                                    "aud": "Онлайн",
-                                    "link": "www.discord.com",
-                                    "teacher": "Воробьев А.И.",
-                                    "theme": "Работа с State, Redux",
-                                    "start_time": "2021-05-29 14:15:00",
-                                    "end_time": "2021-05-29 15:50:00",
-                                    "module_id": 1
+                                    "name": "Встреча ИТС",
+                                    "color": "#232323",
+                                    "aud": "8-623",
+                                    "link": "",
+                                    "theme": "ИТС",
+                                    "teacher": "Зарьянов В.в",
+                                    "start_date": "2021-06-04T13:00:00.000Z",
+                                    "end_date": "2021-06-04T14:35:00.000Z",
+                                    "id": 25,
+                                    "module_id": 5
                                 }
                             ]
                         }
