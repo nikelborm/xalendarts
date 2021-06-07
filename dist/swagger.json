@@ -4,7 +4,7 @@
         "version": "1.0.0",
         "title": "Xalendar Official API docs"
     },
-    "host": "xalendarr.herokuapp.com",
+    "host": "165.22.72.61",
     "tags": [
         {
             "name": "User"

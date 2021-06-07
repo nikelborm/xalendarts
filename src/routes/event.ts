@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import { selectModules, getModuleById } from '../services/module';
+import moment from 'moment';
 import { getError } from './error';
 import {
   deleteCurrentEvent,
@@ -11,7 +12,7 @@ import {
 import e from 'express';
 
 export async function getEvent(req: Request, res: Response) {
-  res.header('Access-Control-Allow-Origin');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Content-Type', 'application/json; charset=utf-8');
 
   const event = await selectCurrentEvent(req.params.id);
@@ -24,7 +25,7 @@ export async function getEvent(req: Request, res: Response) {
 }
 
 export async function getEvents(req: Request, res: Response) {
-  res.header('Access-Control-Allow-Origin');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Content-Type', 'application/json; charset=utf-8');
 
   const events: any[] = [];
@@ -41,6 +42,11 @@ export async function getEvents(req: Request, res: Response) {
       return;
     } else {
       JSON.parse(JSON.stringify(eventArray)).forEach((event: any) => {
+        const startDate = event.start_date;
+        event['start_date'] = moment(startDate).toISOString();
+        const endDate = event.end_date;
+        event['end_date'] = moment(endDate).toISOString();
+
         events.push(event);
       });
     }
@@ -50,7 +56,7 @@ export async function getEvents(req: Request, res: Response) {
 }
 
 export async function updateEvent(req: Request, res: Response) {
-  res.header('Access-Control-Allow-Origin');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Content-Type', 'application/json; charset=utf-8');
 
   const updatedEvent = await updateCurrentEvent(
@@ -73,7 +79,7 @@ export async function updateEvent(req: Request, res: Response) {
 }
 
 export async function setEvent(req: Request, res: Response) {
-  res.header('Access-Control-Allow-Origin');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Content-Type', 'application/json; charset=utf-8');
 
   const newEvent = await setCurrentEvent(
@@ -96,7 +102,7 @@ export async function setEvent(req: Request, res: Response) {
 }
 
 export async function deleteEvent(req: Request, res: Response) {
-  res.header('Access-Control-Allow-Origin');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Content-Type', 'application/json; charset=utf-8');
 
   const deletedEvent = await deleteCurrentEvent(req.params.id);
